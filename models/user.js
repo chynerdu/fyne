@@ -36,6 +36,14 @@ const UserSchema = new mongoose.Schema({
     minlength: 6,
     select: false,
   },
+  address: {
+    type: String,
+    // required: [true, "Please add last name"],
+  },
+  experience: {
+    type: String,
+    // required: [true, "Please add last name"],
+  },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
   createdAt: {
