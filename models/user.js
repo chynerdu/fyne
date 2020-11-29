@@ -44,6 +44,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     // required: [true, "Please add last name"],
   },
+  portfolio: {
+    type: Array,
+  },
+
   resetPasswordToken: String,
   resetPasswordExpire: Date,
   createdAt: {
