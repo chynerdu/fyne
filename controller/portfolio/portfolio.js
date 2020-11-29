@@ -48,7 +48,23 @@ exports.getLoggedInUserPortfolio = asyncHandler(async (req, res, next) => {
   let portfolio = await Portfolio.find({ user_id: req.user.id });
 
   res.status(200).json({
-    statusCode: 201,
+    statusCode: 200,
+    success: true,
+    data: portfolio,
+  });
+});
+
+exports.getUsersPortfolio = asyncHandler(async (req, res, next) => {
+  // find user with id
+  let user = await User.findById(req.params.id);
+  if (!user) {
+    next(new ErrorResponse(`User not found`, 404));
+  }
+
+  let portfolio = await Portfolio.find({ user_id: req.params.id });
+
+  res.status(200).json({
+    statusCode: 200,
     success: true,
     data: portfolio,
   });
