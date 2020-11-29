@@ -14,8 +14,7 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
     next(new ErrorResponse(`User not found`, 404));
   }
   // make sure is owner
-  console.log("user ", user);
-  console.log("user ", req.user);
+
   if (user.id !== req.user.id) {
     next(new ErrorResponse("User is not unauthorized", 401));
   }
@@ -27,6 +26,7 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
   });
 
   res.status(200).json({
+    statusCode: 200,
     success: true,
     data: user,
   });
@@ -41,9 +41,8 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
     runValidators: true,
   });
 
-  console.log("user ", user);
-
   res.status(200).json({
+    statusCode: 200,
     success: true,
     data: user,
   });
@@ -55,26 +54,27 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
 
 exports.uploadPortfolioImage = asyncHandler(async (req, res, next) => {
   // find user with id
-  let user = await User.findById(req.params.id);
+  let user = await User.findById(req.user.id);
   if (!user) {
     next(new ErrorResponse(`User not found`, 404));
   }
-  // make sure is owner
-  console.log("user ", user);
-  console.log("user ", req.user);
-  if (user.id !== req.user.id) {
-    next(new ErrorResponse("User is not unauthorized", 401));
+
+  const { portfolio_images } = req.body;
+  if (req.body.portfolio_images.length < 0) {
+    next(new ErrorResponse("Image can't be empty", 400));
   }
 
-  console.log("images ", req.body);
-  // // update user
-  // user = await User.findOneAndUpdate(req.params.id, req.body, {
-  //   new: true,
-  //   runValidators: true,
-  // });
+  portfolio_images.forEach((item) => {
+    let { image } = item;
+    const portfolio = Portfolio.create({
+      image,
+      user_id: req.user.id,
+    });
+  });
 
-  // res.status(200).json({
-  //   success: true,
-  //   data: user,
-  // });
+  res.status(200).json({
+    statusCode: 201,
+    success: true,
+    data: portfolio_images,
+  });
 });
