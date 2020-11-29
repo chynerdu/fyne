@@ -36,6 +36,14 @@ const UserSchema = new mongoose.Schema({
     minlength: 6,
     select: false,
   },
+  state: {
+    type: String,
+    // required: [true, "Please add last name"],
+  },
+  lga: {
+    type: String,
+    // required: [true, "Please add last name"],
+  },
   address: {
     type: String,
     // required: [true, "Please add last name"],
