@@ -48,6 +48,14 @@ const UserSchema = new mongoose.Schema({
     type: String,
     // required: [true, "Please add last name"],
   },
+  lat: {
+    type: Number,
+    // required: [true, "Please add last name"],
+  },
+  long: {
+    type: Number,
+    // required: [true, "Please add last name"],
+  },
   experience: {
     type: String,
     // required: [true, "Please add last name"],
