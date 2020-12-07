@@ -63,6 +63,9 @@ const UserSchema = new mongoose.Schema({
   portfolio: {
     type: Array,
   },
+  profileImage: {
+    type: String,
+  },
 
   resetPasswordToken: String,
   resetPasswordExpire: Date,
