@@ -80,7 +80,13 @@ exports.login = asyncHandler(async (req, res, next) => {
   if (!isMatch) {
     return next(new ErrorResponse("Invalid credentials", 401));
   }
+
   sendTokenResponseWithBody(user, 200, res);
+  // check if its first time login
+  if (user.firstTimeLogin) {
+    user.firstTimeLogin = 0;
+    await user.save();
+  }
 });
 
 // Get token from model, creatae cookie and send response
@@ -130,6 +136,7 @@ const sendTokenResponseWithBody = (user, statusCode, res) => {
     email: user.email,
     phone: user.phone,
     role: user.role,
+    firstTimeLogin: user.firstTimeLogin,
   };
   // CREATE token and cookie
   const token = user.getSignedJwtToken();
