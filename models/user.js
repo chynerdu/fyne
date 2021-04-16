@@ -16,6 +16,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please add phone number"],
   },
+  gender: {
+    type: String,
+    required: [true, "Please add gender"],
+  },
   email: {
     type: String,
     required: [true, "Please add an email"],
@@ -27,8 +31,8 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["admin", "artist", "customer"],
-    default: "customer",
+    enum: ["admin", "client", "service-provider"],
+    default: "client",
   },
   password: {
     type: String,
