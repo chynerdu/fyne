@@ -8,7 +8,15 @@ const User = require("../../models/user");
 // @access public
 
 exports.register = asyncHandler(async (req, res, next) => {
-  const { first_name, last_name, phone, email, password, role } = req.body;
+  const {
+    first_name,
+    last_name,
+    phone,
+    email,
+    password,
+    role,
+    gender,
+  } = req.body;
 
   const user = await User.create({
     first_name,
@@ -17,6 +25,7 @@ exports.register = asyncHandler(async (req, res, next) => {
     email,
     password,
     role,
+    gender,
   });
 
   //  send email
@@ -136,6 +145,7 @@ const sendTokenResponseWithBody = (user, statusCode, res) => {
     email: user.email,
     phone: user.phone,
     role: user.role,
+    gender: user.gender,
     firstTimeLogin: user.firstTimeLogin,
   };
   // CREATE token and cookie
