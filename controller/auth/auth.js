@@ -16,6 +16,7 @@ exports.register = asyncHandler(async (req, res, next) => {
     password,
     role,
     gender,
+    profileImage,
   } = req.body;
 
   const user = await User.create({
@@ -26,6 +27,7 @@ exports.register = asyncHandler(async (req, res, next) => {
     password,
     role,
     gender,
+    profileImage,
   });
 
   //  send email

@@ -69,6 +69,7 @@ const UserSchema = new mongoose.Schema({
   },
   profileImage: {
     type: String,
+    required: [true, "Please add profile image"],
   },
   firstTimeLogin: {
     type: Boolean,
