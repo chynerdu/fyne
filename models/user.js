@@ -2,8 +2,10 @@ const crypto = require("crypto");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Schema = mongoose.Schema;
 
 const UserSchema = new mongoose.Schema({
+  _id: Schema.Types.ObjectId,
   first_name: {
     type: String,
     required: [true, "Please add first name"],
