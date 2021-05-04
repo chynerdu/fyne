@@ -53,7 +53,7 @@ io.on("connection", (socket) => {
     io.emit("roomData", "room Data");
   });
 
-  // private chat
+  // private chat test
   socket.on("JoinPrivate", (message) => {
     console.log("joining private: ", message);
     io.emit("adminMessage", "welcome to private room");
