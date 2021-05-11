@@ -11,6 +11,19 @@ const io = require("socket.io")(server, {
   },
 });
 
+// websocket
+const WebSocket = require("ws");
+
+const wss = new WebSocket.Server({ server });
+
+wss.on("connection", (ws) => {
+  console.log("web socket connected ", wss.clients);
+  ws.on("message", (message) => {
+    console.log(`Received message => ${message}`);
+  });
+  ws.send("ho!");
+});
+
 const morgan = require("morgan");
 const errorHandler = require("./middleware/error");
 const colors = require("colors");
@@ -45,6 +58,7 @@ app.use("/api/v1/job", job);
 app.use("/api/v1/applicants", jobsContd);
 app.use(errorHandler);
 
+// ///////   Socket Connection ///////////////////
 io.on("connection", (socket) => {
   console.log("Some client connected");
   socket.on("joinPublic", (message) => {
