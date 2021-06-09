@@ -2,6 +2,7 @@ const ErrorResponse = require("../../utils/errorResponse");
 const asyncHandler = require("../../middleware/async");
 const sendEmail = require("../../utils/sendEmail");
 const User = require("../../models/user");
+const mongoose = require("mongoose");
 
 // @desc Register
 // @route POST /api/v1/auth/register
@@ -16,9 +17,11 @@ exports.register = asyncHandler(async (req, res, next) => {
     password,
     role,
     gender,
+    profileImage,
   } = req.body;
-
+  const _id = new mongoose.Types.ObjectId();
   const user = await User.create({
+    _id,
     first_name,
     last_name,
     phone,
@@ -26,6 +29,7 @@ exports.register = asyncHandler(async (req, res, next) => {
     password,
     role,
     gender,
+    profileImage,
   });
 
   //  send email
